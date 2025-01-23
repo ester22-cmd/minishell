@@ -12,4 +12,4 @@ SRCS = $(wildcard $(SRC_DIR)/**/*.c)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 $(NAME): $(OBJS)
-    $(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
