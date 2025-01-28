@@ -4,7 +4,7 @@ int main(void)
 {
     char *line;
 
-    setup_signals();
+    // setup_signals();
     while (1)
     {
         line = readline("minishell> ");
@@ -16,3 +16,4 @@ int main(void)
     }
     return (0);
 }
+// depois do readline -> Tokenização -> Parseamento 

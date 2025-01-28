@@ -15,29 +15,29 @@ void handle_sigint(int sig)
    rl_redisplay();
 }
 
-int main(void)
-{
-   char *input;
+// int main(void)
+// {
+//    char *input;
 
-   init_readline();
-   signal(SIGINT, handle_sigint);
-   signal(SIGQUIT, SIG_IGN);
+//    init_readline();
+//    signal(SIGINT, handle_sigint);
+//    signal(SIGQUIT, SIG_IGN);
 
-   while (1)
-   {
-       input = readline("minishell> ");
-       if (!input)  // Ctrl+D
-       {
-           printf("exit\n");
-           break;
-       }
-       if (*input)  // Se linha não vazia
-           add_history(input);
+//    while (1)
+//    {
+//        input = readline("minishell> ");
+//        if (!input)  // Ctrl+D
+//        {
+//            printf("exit\n");
+//            break;
+//        }
+//        if (*input)  // Se linha não vazia
+//            add_history(input);
            
-       // Processar input aqui
+//        // Processar input aqui
        
-       free(input);
-   }
-   clear_history();
-   return (0);
-}
+//        free(input);
+//    }
+//    clear_history();
+//    return (0);
+// }
