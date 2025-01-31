@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../include/minishell.h"
 
 int	quotes_closed(t_mini *mini)
 {
