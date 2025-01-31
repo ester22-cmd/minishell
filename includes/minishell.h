@@ -1,33 +1,36 @@
-#ifndef MINISHELL_H
-# define MINISHELL_H
+/*
+** input -> line read from terminal (raw, no treats)
+** input_sanitized -> input ready to work with
+** is_open -> int value to check quoting
+** env -> pointer to env structure
+** list -> pointer to a linked lis
+*/
+typedef struct s_mini
+{
+	char	**path;
+	char	*input;
+	char	*input_sanitized;
+	char	*correct_path;
+	char	*home;
+	int		init_with_arrow;
+	int		is_open_s;
+	int		is_open_d;
+	int		final_s;
+	int		final_d;
+	int		is_open_s_str;
+	int		is_open_d_str;
+	int		is_final_s;
+	int		is_final_d;
+	int		open_s_str;
+	int		open_d_str;
+	int		pipe;
+	int		redir;
+	int		out;
+	int		in;
+	int		st_out;
+	int		st_in;
+	int		command_fail;
+	int		i;
+}	t_mini;
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <sys/wait.h>
-
-// Estruturas básicas
-typedef struct	s_token {
-	char	*value;
-	int		type;
-	struct s_token *next;
-}   t_token;
-
-typedef struct s_command {
-	char	**args;
-	char	*input_file;
-	char	*output_file;
-	int		append_mode;
-	struct s_command *next;
-} t_command;
-
-// Protótipos das funções principais
-void		setup_signals(void);
-t_token		*tokenize(char *line);
-t_command	*parse_commands(t_token *tokens);
-int			execute_pipeline(t_command *cmd);
-
-#endif
+extern int	g_return;
