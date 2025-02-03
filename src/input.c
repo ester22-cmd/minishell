@@ -48,6 +48,7 @@ int	input_validate(t_mini *mini)
                 return (0);
 		}
 		i++;
+	}
 	return (1);
 }
 
