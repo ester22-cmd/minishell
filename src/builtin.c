@@ -54,20 +54,28 @@ int	is_builtin(t_node *node)
 }
 
 void	execute_builtin(int builtin, t_node *node, t_mini *mini, t_list *list)
-{
+{// Processa o comando built-in antes de executá-lo
 	get_cmd_builtin(mini, node);
+	// Se builtin for 1, executa o comando echo com os parâmetros mini, node e flag 1
 	if (builtin == 1)
 		miniecho(mini, node, 1);
+	//Se builtin for 2, executa o comando cd para mudar de diretório
 	if (builtin == 2)
+	// Se builtin for 3, executa o comando pwd para mostrar diretório atual
 		minicd(mini, node);
 	if (builtin == 3)
 		minipwd();
+		 // Se builtin for 4, executa export para definir variáveis de ambiente
 	if (builtin == 4)
 		miniexport(mini->env, node);
+		// Se builtin for 5, executa unset para remover variáveis de ambiente,
+   // passando o ambiente e posição inicial duas vezes
 	if (builtin == 5)
 		miniunset(mini->env, node, mini->env->begin, mini->env->begin);
+		// Se builtin for 6, executa env para listar variáveis de ambiente
 	if (builtin == 6)
 		minienv(mini->env);
+		// Se builtin for 7, executa exit para encerrar o shell
 	if (builtin == 7)
 		miniexit(mini, node, list);
 }
