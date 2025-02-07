@@ -55,27 +55,28 @@ void	execute(t_mini *mini, t_list *list, t_node *node)
 	dup2(mini->st_out, STDOUT_FILENO);
 	dup2(mini->st_in, STDIN_FILENO);
 }
-
+// Função que verifica aspas simples e duplas em uma string
+// Recebe uma struct mini e uma string como parâmetros
 void	verify_quotes(t_mini *mini, char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
-	{
+	{// Verifica se o caractere atual é uma aspas simples (S_QUOTE)
 		if (str[i] == S_QUOTE)
-		{
+		{// Se não há nenhuma string aberta (aspas simples ou duplas)
 			if (mini->open_s_str == 0 && mini->open_d_str == 0)
-				mini->open_s_str = 1;
-			else if (mini->open_s_str == 1)
+				mini->open_s_str = 1;// Se já havia uma string com aspas simples aberta
+			else if (mini->open_s_str == 1)// Fecha a string com aspas simples
 				mini->open_s_str = 0;
 		}
-		if (str[i] == D_QUOTE)
+		if (str[i] == D_QUOTE)// Verifica se o caractere atual é uma aspas duplas (D_QUOTE)
 		{
-			if (mini->open_d_str == 0 && mini->open_s_str == 0)
+			if (mini->open_d_str == 0 && mini->open_s_str == 0)// Se não há nenhuma string aberta (aspas simples ou duplas)
 				mini->open_d_str = 1;
-			else if (mini->open_d_str == 1)
-				mini->open_d_str = 0;
+			else if (mini->open_d_str == 1)// Se já havia uma string com aspas duplas aberta
+				mini->open_d_str = 0;// Fecha a string com aspas duplas
 		}
 		i++;
 	}
