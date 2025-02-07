@@ -8,15 +8,15 @@ void	is_quote(char c, t_sani *s)
 			s->s = 1;
 		// Se já havia uma aspas simples aberta, fecha ela
 		else if (s->s == 1)
-			s->s = 0;
+			s->s = 0;// Fecha as aspas simples
 	}// Se encontrar aspas duplas (D_QUOTE)
-	if (c == D_QUOTE)
+	if (c == D_QUOTE) // Se encontrar aspas duplas (")
 	{// Se não houver nenhuma aspas aberta
 		if (s->d == 0 && s->s == 0)
-			s->d = 1;
+			s->d = 1;// Marca aspas duplas como aberta
 		// Se já havia uma aspas dupla aberta, fecha ela
 		else if (s->d == 1)
-			s->d = 0;
+			s->d = 0;// Fecha as aspas duplas
 	}
 }
 
@@ -29,14 +29,14 @@ void	put_spaces(char *str, int len, t_sani *s, t_mini *m)
 		// Se encontrar pipe (|) fora de aspas
 		if (str[s->i] == '|' && !s->s && !s->d)
 		{
-			m->input_sanitized[s->j++] = ' ';
-			m->input_sanitized[s->j++] = str[s->i++];
-			m->input_sanitized[s->j++] = ' ';
+			m->input_sanitized[s->j++] = ' ';// Adiciona espaço antes
+			m->input_sanitized[s->j++] = str[s->i++];// Copia o pipe
+			m->input_sanitized[s->j++] = ' ';// Adiciona espaço depois
 		}// Se encontrar redirecionamentos (> ou <) fora de aspas
 		if ((str[s->i] == '>' || str[s->i] == '<') && !s->s && !s->d)
 		{
-			m->input_sanitized[s->j++] = ' ';
-			m->input_sanitized[s->j++] = str[s->i++];
+			m->input_sanitized[s->j++] = ' ';// Adiciona espaço antes
+			m->input_sanitized[s->j++] = str[s->i++];// Copia o primeiro caractere
 			while (str[s->i] == '<' || str[s->i] == '>')
 				m->input_sanitized[s->j++] = str[s->i++];
 			m->input_sanitized[s->j++] = ' ';
