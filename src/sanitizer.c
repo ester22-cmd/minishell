@@ -80,12 +80,12 @@ void	input_sanitizer(t_mini *mini, t_sani *sani)
 	char	*aux;
 	int		len;
 // Inicializa as variáveis de controle
-	sani->s = 0;
-	sani->d = 0;
-	sani->i = 0;
-	sani->j = 0;
-	aux = ft_strtrim(mini->input, " ");
-	len = correct_len(aux, 0, 0, sani);
-	put_spaces(aux, len, sani, mini);
-	free(aux);
+	sani->s = 0;// Estado das aspas simples
+	sani->d = 0;// Estado das aspas duplas
+	sani->i = 0;// Índice de leitura
+	sani->j = 0;// Índice de escrita
+	aux = ft_strtrim(mini->input, " ");// Remove espaços extras das extremidades
+	len = correct_len(aux, 0, 0, sani);// Calcula o tamanho necessário
+	put_spaces(aux, len, sani, mini);// Adiciona os espaços necessários
+	free(aux);// Libera a memória temporária
 } 
