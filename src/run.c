@@ -1,53 +1,57 @@
 #include "../include/minishell.h"
-
+// Função que executa o processo filho, recebendo a estrutura principal e o nó do comando atual
 void	execute_child(t_mini *mini, t_node *node)
 {
+
 	int	i;
 
 	i = 3;
-	while (i < 150)
+	while (i < 150)// Loop para fechar todos os file descriptors de 3 até 149
 	{
-		close(i);
+		close(i);// Fecha o file descriptor atual
 		i++;
-	}
+	}// Processa o comando atual e atualiza as informações na estrutura mini
 	get_cmd(mini, node);
-	if (find_path(mini, node->str[0]))
+	if (find_path(mini, node->str[0]))// Verifica se encontrou o caminho do executável para o comando
 	{
-		execve(mini->correct_path, node->str, __environ);
-		perror("error");
-		exit(EXIT_FAILURE);
-	}
+		execve(mini->correct_path, node->str, __environ);// Tenta executar o comando usando execve:
+        // - mini->correct_path: caminho completo do executável
+        // - node->str: array de argumentos do comando
+        // - __environ: variáveis de ambiente do sistema
+		perror("error");//imprime mensagem de error
+		exit(EXIT_FAILURE);// termina o processo filho com status de falha
+	}// Se não houve falha no comando (command_fail == 0)
 	if (mini->command_fail == 0)
-		exit(g_return);
+		exit(g_return);// Sai com o valor da variável global g_return
 	else
 		exit(0);
 }
-
+// Função que executa comandos, recebe como parâmetros uma struct mini, uma lista e um nó
 void	execute(t_mini *mini, t_list *list, t_node *node)
 {
-	int	pid;
+	int	pid;//variavel para armazenar o ID do processo
 
-	fd_handler(mini);
-	if (is_builtin(node))
+	fd_handler(mini);//função que lida com os files descriptors
+	if (is_builtin(node))// Se for builtin, executa a função apropriada
 		execute_builtin(is_builtin(node), node, mini, list);
 	else
-	{
+	{// Se não for builtin, cria um novo processo
 		pid = fork();
-		signals(2);
+		signals(2);// Configura os sinais para o processo filho
 		if (pid < 0)
 		{
-			printf("error\n");
+			printf("error\n");// Se fork() falhou, mostra erro
 			g_return = 127;
 		}
-		else if (pid == 0)
+		else if (pid == 0)// Se é processo filho (pid=0), executa o comando
 			execute_child(mini, node);
 		else
-			waitpid(pid, &g_return, WUNTRACED);
-		if (WIFEXITED(g_return))
-			g_return = WEXITSTATUS(g_return);
+			waitpid(pid, &g_return, WUNTRACED);// Se é processo pai, espera o filho terminar
+		if (WIFEXITED(g_return))// Verifica se o processo filho terminou normalmente
+			g_return = WEXITSTATUS(g_return);// se sim, define retorno com 0
 		else
 			g_return = 0;
-	}
+	}// Restaura os file descriptors padrão de entrada e saída
 	dup2(mini->st_out, STDOUT_FILENO);
 	dup2(mini->st_in, STDIN_FILENO);
 }
