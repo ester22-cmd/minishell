@@ -21,10 +21,10 @@ int	redirect_out(t_mini *mini, t_node *node, int i)
 	{
 		mini->out = open(file, flags | O_TRUNC, 0777);// Abre o arquivo com flags para truncar, atribuindo o descritor a mini->out.
 		free(file);
-		return (1);
+		return (1); // retorna com sucesso
 	}
 	free(file);
-	return (0);
+	return (0);// vai retornar erro ser não for redirecionamento correto
 }
 
 void	ft_putstrendl_fd(char *s, int fd)
@@ -34,7 +34,7 @@ void	ft_putstrendl_fd(char *s, int fd)
 	i = 0;
 	if (s != 0 && fd != 0)// Verifica se a string 's' não é nula e se 'fd' é válido
 	{
-		while (s[i] != '\0')
+		while (s[i] != '\0') //escreve cada caractere da string
 		{
 			write(fd, &s[i], 1);// Escreve o caractere atual no descritor de arquivo
             i++; // Incrementa o contador 'i' para passar ao próximo caractere
@@ -63,8 +63,8 @@ void	here_doc(char *file, char *eof)
 		else
 			break ;
 	}
-	close(fd);
-	free(line);
+	close(fd); // fecha o arquivo
+	free(line); // libera a memoria
 }
 // Função que lida com redirecionamento de entrada.
 int	redirect_in(t_mini *mini, t_node *node, int i)
@@ -94,5 +94,5 @@ int	redirect_in(t_mini *mini, t_node *node, int i)
 		free(eof);
 		return (1);
 	}
-	return (0);
+	return (0); // Retorna 0 indicando que nenhum redirecionamento válido foi feito
 }
