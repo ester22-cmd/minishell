@@ -48,7 +48,6 @@ int	len_quote(char **str)
 	{
 		if (is_just_quote(str[i])) // Se a string não for só aspas, incrementa o contador
 			len++;
-			len++;
 		i++;
 	}
 	return (len); // Retorna o número de strings válidas (não apenas aspas)

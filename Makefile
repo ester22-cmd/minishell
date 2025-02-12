@@ -1,10 +1,12 @@
 NAME =		minishell
 CC =		gcc
 CFLAGS =	-Wall -Werror -Wextra
-RM =		rm -rf
+SRC_DIR    := src
+OBJ_DIR    := obj
+RM = rm -rf
 
-LIBFT_DIR =	./LIBFT
-LIBFT =		$(LIBFT_DIR)/libft.a
+LIBFT_DIR = ./LIBFT
+LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC_FILES =	main.c \
 			crud_list.c \
@@ -50,6 +52,7 @@ $(LIBFT):
 			$(MAKE) -C $(LIBFT_DIR)
 
 clean:
+		rm -rf $(obj)
 			$(MAKE) -C $(LIBFT_DIR) clean
 			$(RM) $(OBJECTS)
 

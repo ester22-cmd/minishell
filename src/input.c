@@ -112,7 +112,7 @@ void	get_input(t_mini *mini, t_sani *sani, t_list *list)
 {// Reseta flags de aspas
 	mini->is_open_s = 0;
 	mini->is_open_d = 0;
-	mini->input = readline(">> "); // Lê input do usuário com prompt
+	mini->input = readline("minihell's>>"); // Lê input do usuário com prompt
 	// Se input não for vazio, adiciona ao histórico
 	if (mini->input)
 	{

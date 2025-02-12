@@ -1,4 +1,4 @@
-#include "../include/minishell.h"s
+#include "../include/minishell.h"
 
 void	get_env(t_mini *mini, char **environ)
 {
