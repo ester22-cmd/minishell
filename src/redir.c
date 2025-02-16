@@ -17,7 +17,6 @@ int	redirect_out(t_mini *mini, t_node *node, int i)
 	int		flags;
 	char	*file;
 
-
 	flags = O_WRONLY | O_CREAT;
 	if (node->str[i + 1] == NULL || node->str[i + 1][0] == '>'
 		|| node->str[i + 1][0] == '<' || node->str[i + 1][0] == '\0')
@@ -61,7 +60,6 @@ void	here_doc(char *file, char *eof)
 	int		flags;
 	int		fd;
 
-
 	flags = O_RDWR | O_CREAT | O_TRUNC;
 	line = ft_strdup("");
 	fd = open(file, flags, 0777);
@@ -100,7 +98,7 @@ int	redirect_in(t_mini *mini, t_node *node, int i)
 		eof = ft_strdup(node->str[i + 1]);
 		here_doc(TMP_FILE, eof);
 		mini->in = open(TMP_FILE, O_RDONLY, 0777);
-        free(eof);
+		free(eof);
 		free(eof);
 		return (1);
 	}
