@@ -26,8 +26,6 @@ void	handler(int signum)
 		printf("Quit (core dumped)\n");
 	}
 }
-
-
 void	handler_main(int signum)
 {
 	g_return = 130;

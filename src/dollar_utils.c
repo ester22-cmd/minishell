@@ -26,6 +26,6 @@ void	expand_var(t_mini *mini, t_node *node, int i)
 	else
 	{
 		free(node->str[i]);
-		node->str[i] = ft_strdup(" "); 
+		node->str[i] = ft_strdup(" ");
 	}
 }

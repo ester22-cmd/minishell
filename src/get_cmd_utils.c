@@ -21,7 +21,7 @@ int	len_node(t_mini *mini, char **str)
 	len = 0;
 	while (str[i])
 	{
-		is_in_quote_str(str[i], mini, 0); 
+		is_in_quote_str(str[i], mini, 0);
 		if ((str[i][0] == '<' || str[i][0] == '>')
 			&& mini->is_open_s_str == 0 && mini->is_open_d_str == 0)
 			i += 2;

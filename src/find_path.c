@@ -34,7 +34,7 @@ char	*check_home(t_mini *mini, char *cmd)
 
 	tilda = check_tilda(cmd);
 	get_home(mini);
-	return (copy_path(mini, cmd, tilda)); 
+	return (copy_path(mini, cmd, tilda));
 }
 
 char	**blabla(t_mini *mini)

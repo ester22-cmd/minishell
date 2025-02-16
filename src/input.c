@@ -99,7 +99,7 @@ int	redir_validate(t_list *list)
 			}
 			i++;
 		}
-		node = node->next; 
+		node = node->next;
 	}
 	return (1);
 }
