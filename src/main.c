@@ -16,20 +16,20 @@ int	main(void)
 		mini.in = STDIN_FILENO; // Entrada padrão (teclado)
 		mini.out = STDOUT_FILENO; // Saída padrão (tela)
 
-		list = create_list(); // Cria uma nova lista encadeada para armazenar os comandos da linha atual
-		get_input(&mini, &sani, list); // Obtém a entrada do usuário e armazena na estrutura mini
-		if (ft_strlen(mini.input) != 0 && mini.input[0] != '|') // Verifica se o input não está vazio e não começa com '|'
+		list = create_list();
+		get_input(&mini, &sani, list);
+		if (ft_strlen(mini.input) != 0 && mini.input[0] != '|')
 		{
-			// Valida a entrada e verifica se todas as aspas foram fechadas corretamente
+
 			if (!input_validate(&mini) || !quotes_closed(&mini))
-				printf("error\n"); // Se houver erro, imprime "error"
+				printf("error\n");
 			else if (split_cmd(&mini, list) && redir_validate(list))
-				run(&mini, list, 0); // Se a entrada for válida, divide os comandos e valida redirecionamentos
-				// Se tudo estiver correto, executa o comando
+				run(&mini, list, 0);
+
 		}
-		free_reset(&mini, list);// Libera memória e reseta variáveis após cada loop de execução
-		mini.pipe = 0; // Reseta o contador de pipes para a próxima execução
+		free_reset(&mini, list);
+		mini.pipe = 0;
 	}
-	free_em_all(&mini); // Quando o shell é encerrado, libera toda a memória alocada
-	return (0); // Retorna 0 indicando que o programa finalizou sem erros
+	free_em_all(&mini);
+	return (0);
 }

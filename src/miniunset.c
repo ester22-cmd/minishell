@@ -2,27 +2,27 @@
 
 void	miniunset(t_env *env, t_node *node, t_nodenv *aux, t_nodenv *prev)
 {
-	while (aux != NULL && node->str[1]) // Enquanto houver nós na lista e um argumento para unset
+	while (aux != NULL && node->str[1])
 	{
-		if (ft_strcmp(aux->key, node->str[1])) // Se a chave atual for diferente da que queremos remover
+		if (ft_strcmp(aux->key, node->str[1]))
 		{
-			if (aux == env->begin && prev == env->begin) // Se estamos no início da lista
-				aux = aux->next; // Apenas avança aux
+			if (aux == env->begin && prev == env->begin)
+				aux = aux->next;
 			else
-			{// Se não estamos no início
-				aux = aux->next; // Avança aux
-				prev = prev->next;   // Avança prev junto
+			{
+				aux = aux->next;
+				prev = prev->next;
 			}
 		}
-		else // Se encontrou a variável que queremos remover
+		else
 		{
-			prev->next = aux->next; // Ajusta o ponteiro do nó anterior para pular o nó atual
-			free(aux->key);                 // Libera a memória da chave
-			free(aux->content);             // Libera a memória do conteúdo
-			free(aux);                      // Libera a memória do nó
-			aux = prev->next;               // Avança para o próximo nó
-			break;                          // Sai do loop pois já removeu a variável
+			prev->next = aux->next;
+			free(aux->key);
+			free(aux->content);
+			free(aux);
+			aux = prev->next;
+			break;
 		}
 	}
-	g_return = 0; // Define o código de retorno como sucesso
+	g_return = 0;
 }
