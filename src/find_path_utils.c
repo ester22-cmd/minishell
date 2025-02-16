@@ -1,64 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_path_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/15 21:05:51 by amaferre          #+#    #+#             */
+/*   Updated: 2025/02/15 21:05:51 by amaferre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "../include/minishell.h"
 
-void	get_home(t_mini *mini) //Obtém e atualiza o valor da variável HOME no minishell
+void	get_home(t_mini *mini)
 {
-	t_nodenv	*env; // Ponteiro para percorrer a lista de variáveis de ambiente
+	t_nodenv	*env;
 
-	env = mini->env->begin; // Começa do início da lista
+	env = mini->env->begin;
 	while (env != NULL)
 	{
-		if (!ft_strcmp(env->key, "HOME")) // Procura pela variável HOME
+		if (!ft_strcmp(env->key, "HOME"))
 			break ;
 		env = env->next;
 	}
-	if (env->content) // Se encontrou e tem conteúdo
+	if (env->content)
 	{
-		free(mini->home); // Libera o valor antigo de home
-		mini->home = ft_strdup(env->content); // Atualiza com uma cópia do novo valor
+		free(mini->home);
+		mini->home = ft_strdup(env->content);
 	}
 }
 
-char	*copy_string(t_mini *mini, char *cmd, int len_home, int tilda) // Copia uma string substituindo ~ pelo valor de HOME
+char	*copy_string(t_mini *mini, char *cmd, int len_home, int tilda)
 {
-	char	*str; // Nova string
-	int		i; // Índice para string original
-	int		j; // Índice para nova string
-	int		k; // Índice para path home
+	char	*str;
+	int		i;
+	int		j;
+	int		k;
 
 	i = 0;
 	j = 0;
 	k = 0;
-	// Aloca espaço para nova string (tamanho home + comando - número de ~)
 	str = malloc (sizeof(char) * len_home + ft_strlen(cmd) + 1 - tilda);
-	while (cmd[i]) // Percorre a string original
+	while (cmd[i])
 	{
 		if (cmd[i] != '~')
-		// Se não for ~, copia normalmente
 			str[j++] = cmd[i++];
 		else
 		{
-			if (i != 0) // Se for ~, mas não no início
+			if (i != 0)
 				k++;
-			while (mini->home[k])  // Copia o path home
+			while (mini->home[k])
 				str[j++] = mini->home[k++];
 			k = 0;
 			i++;
 		}
 	}
 	str[j] = '\0';
-	return (str); //@return: nova string com ~ expandido
+	return (str);
 }
 
-char	*copy_path(t_mini *mini, char *cmd, int tilda) //Prepara e realiza a cópia de um path expandindo
+char	*copy_path(t_mini *mini, char *cmd, int tilda)
 {
-	char	*aux; // String auxiliar para resultado
-	int		len_home; // Comprimento do path home
-	int		i; // Índice auxiliar
+	char	*aux;
+	int		len_home; 
+	int		i;
 
-	len_home = ft_strlen(mini->home); // Obtém comprimento do path home
+	len_home = ft_strlen(mini->home);
 	i = 0;
-	if (cmd[i] == '~') //Se começa com ~, incrementa len_home
+	if (cmd[i] == '~')
 		len_home++;
-	aux = copy_string(mini, cmd, len_home, tilda); //Copia a string fazendo as substituições
+	aux = copy_string(mini, cmd, len_home, tilda);
 	return (aux);
 }
