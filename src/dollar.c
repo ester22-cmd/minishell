@@ -1,93 +1,102 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollar.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/15 21:05:37 by amaferre          #+#    #+#             */
+/*   Updated: 2025/02/15 21:05:37 by amaferre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-char	*get_var_content(t_mini *mini, char *key) //Busca o conteúdo de uma variável de ambiente na lista encadeada de variáveis
+char	*get_var_content(t_mini *mini, char *key)
 {
-	t_nodenv	*node_env; // Ponteiro para percorrer a lista de variáveis de ambiente
+	t_nodenv	*node_env;
 
-	node_env = mini->env->begin; // Começa do início da lista de ambiente
-	while (node_env != NULL) // Percorre toda a lista
+	node_env = mini->env->begin;
+	while (node_env != NULL) 
 	{
-		if (!ft_strcmp(node_env->key, key))   // Se encontrar a chave procurada
-			return (ft_strdup(node_env->content)); // Retorna uma cópia do conteúdo
+		if (!ft_strcmp(node_env->key, key))
+			return (ft_strdup(node_env->content));
 		node_env = node_env->next; 
 	}
-	return (NULL); // Se não encontrou, retorna NULL
+	return (NULL);
 }
 
-char	*get_var(t_mini *mini, char *str, int i) //Extrai uma variável de uma string e busca seu conteúdo
+char	*get_var(t_mini *mini, char *str, int i)
 {
-	char	*var; // Armazenará o nome da variável
-	char	*content; // Armazenará o conteúdo da variável
-	int		len; // Armazenará o conteúdo da variável
-	int		j; // Índice auxiliar
+	char	*var;
+	char	*content;
+	int		len;
+	int		j;
 
 	len = 0;
 	j = i;
-	while (str[i] && str[i] != '$') // Conta o comprimento até encontrar $ ou fim da string
+	while (str[i] && str[i] != '$')
 	{
 		len++;
 		i++;
 	}
-	if (len > 0) // Aloca espaço para o nome da variável
+	if (len > 0)
 	{
 		var = malloc (sizeof(char) * len + 1);
 		i = 0;
-		while (str[j] && str[j] != '$' && str[j] != D_QUOTE) // Copia o nome da variável
+		while (str[j] && str[j] != '$' && str[j] != D_QUOTE)
 			var[i++] = str[j++];
 		var[i] = '\0';
-		content = get_var_content(mini, var); // Busca o conteúdo da variável
+		content = get_var_content(mini, var);
 		free(var);
 		return (content);
 	}
 	return (NULL);
 }
 
-char	*get_join(char *str) // Extrai a parte inicial de uma string até encontrar um $
+char	*get_join(char *str)
 {
 	int		i;
 	char	*aux;
 
 	i = 0;
-	if (str[i] == '$') // Se começar com $, retorna NULL
+	if (str[i] == '$')
 		return (NULL);
-	while (str[i] && str[i] != '$') // Avança até encontrar $ ou fim da string
+	while (str[i] && str[i] != '$')
 		i++;
-	aux = ft_substr(str, 0, i - 1); // Extrai a substring até o caractere anterior ao $
-	return (aux);
+	aux = ft_substr(str, 0, i - 1);
 }
 
-char	*get_content(t_mini *mini, t_node *node, int i, int j) //Obtém o conteúdo de uma variável especial ou de ambiente
+char	*get_content(t_mini *mini, t_node *node, int i, int j)
 {
 	char	*content;
 
 	content = NULL;
-	if (node->str[i][j + 1] == '?') // Se for $?, retorna o código de retorno global
+	if (node->str[i][j + 1] == '?')
 		content = ft_itoa(g_return);
-	else // Senão, busca o conteúdo da variável
+	else
 		content = get_var(mini, node->str[i], j + 1);
 	return (content);
 }
 
-char	*transform(t_mini *mini, t_node *node, int i, int j) //Transforma uma string expandindo suas variáveis
+char	*transform(t_mini *mini, t_node *node, int i, int j)
 {
-	char	*content; // Conteúdo da variável atual
-	char	*holder; // String resultante
-	char	*aux;  // String auxiliar para concatenação
+	char	*content;
+	char	*holder;
+	char	*aux;
 
 	content = NULL;
-	// Obtém a parte inicial até o primeiro $
 	holder = get_join(node->str[i]);
-	while (node->str[i][j]) // Percorre a string
+	while (node->str[i][j])
 	{
-		if (node->str[i][j] == '$') // Quando encontra uma variável
+		if (node->str[i][j] == '$')
 		{
-			content = get_content(mini, node, i, j); // Obtém o conteúdo da variável
+			content = get_content(mini, node, i, j);
 			if (content != NULL)
 			{
 				aux = holder;
-				if (holder == NULL) // Se holder for NULL, começa com string vazia
+				if (holder == NULL)
 					aux = ft_strdup("");
-			// Concatena o conteúdo atual
 				holder = ft_strjoin(aux, content);
 				free(aux);
 				free(content);
