@@ -17,11 +17,11 @@ char	*get_var_content(t_mini *mini, char *key)
 	t_nodenv	*node_env;
 
 	node_env = mini->env->begin;
-	while (node_env != NULL) 
+	while (node_env != NULL)
 	{
 		if (!ft_strcmp(node_env->key, key))
 			return (ft_strdup(node_env->content));
-		node_env = node_env->next; 
+		node_env = node_env->next;
 	}
 	return (NULL);
 }
