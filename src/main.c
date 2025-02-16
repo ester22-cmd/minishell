@@ -12,13 +12,15 @@
 
 #include "../include/minishell.h"
 
-int	g_return; 
+int	g_return;
+
 int	main(void)
 {
 	t_mini	mini;
 	t_list	*list;
 	t_sani	sani;
 	init(&mini, __environ);
+
 	while (1)
 	{
 		signals(1);

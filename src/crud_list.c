@@ -25,7 +25,7 @@ t_list	*create_list(void)
 
 t_node	*create_node(char *str)
 {
-	t_node	*node; 
+	t_node	*node;
 
 	node = malloc(sizeof(t_node));
 	node->str = ft_split(str, ' ');
@@ -33,7 +33,7 @@ t_node	*create_node(char *str)
 	return (node);
 }
 
-void	push_node(t_list *list, char *str) 
+void	push_node(t_list *list, char *str)
 {
 	t_node	*node;
 

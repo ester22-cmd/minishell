@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/minishell.h"
 
 void	get_home(t_mini *mini)
@@ -63,7 +62,7 @@ char	*copy_string(t_mini *mini, char *cmd, int len_home, int tilda)
 char	*copy_path(t_mini *mini, char *cmd, int tilda)
 {
 	char	*aux;
-	int		len_home; 
+	int		len_home;
 	int		i;
 
 	len_home = ft_strlen(mini->home);

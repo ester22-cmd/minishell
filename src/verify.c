@@ -24,7 +24,6 @@ void	is_in_quote(char c, t_mini *mini)
 			mini->final_s = 1;
 		}
 	}
-
 	if (c == D_QUOTE)
 	{
 		if (mini->is_open_d == 0 && mini->is_open_s == 0)
@@ -41,6 +40,5 @@ int	is_redirect(char c)
 {
 	if (c == '|' || c == '<' || c == '>')
 		return (1);
-
 	return (0);
 }

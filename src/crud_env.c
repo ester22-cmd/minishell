@@ -39,6 +39,7 @@ t_nodenv	*create_nodenv(char *key, char *content)
 void	push_env(t_env *env, char *key, char *content)
 {
 	t_nodenv	*node;
+
 	node = create_nodenv(key, content);
 	if (env->begin == NULL)
 	{
@@ -62,7 +63,6 @@ void	free_env(t_env **env_ref)
 	env = *env_ref;
 	node = env->begin;
 	aux = NULL;
-	
 	while (node != NULL)
 	{
 		aux = node;
@@ -82,7 +82,6 @@ void	print_env(t_env *env)
 	node = env->begin;
 	while (node->next != NULL)
 	{
-
 		printf("%s=%s\n", node->key, node->content);
 		node = node->next;
 	}

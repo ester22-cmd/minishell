@@ -19,7 +19,7 @@ void	check_dollar(t_mini *mini, t_node *node)
 
 	i = 0;
 	j = 0;
-	while (node->str[i]) 
+	while (node->str[i])
 	{
 		j = 0;
 		while (node->str[i][j])
@@ -47,14 +47,13 @@ char	*dirty_jobs(char **str, int i)
 
 	j = 0;
 	holder = ft_strdup(str[i]);
-	while (holder[j] && holder[j] == ' ') 
+	while (holder[j] && holder[j] == ' ')
 		j++;
 	while (holder[j] && (holder[j] == D_QUOTE || holder[j] == S_QUOTE))
 		j++;
 	start = j;
 	while (holder[j] && holder[j] != D_QUOTE && holder[j] != S_QUOTE)
 		j++;
-
 	end = j - 1;
 	aux = ft_substr(holder, start, end - start + 1);
 	return (aux);

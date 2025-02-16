@@ -18,5 +18,5 @@ void	minipwd(void)
 
 	getcwd(wd, sizeof(wd));
 	printf("%s\n", wd);
-	g_return = 0; 
+	g_return = 0;
 }
