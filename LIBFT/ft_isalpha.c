@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaferre <amaferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 21:16:42 by amaferre          #+#    #+#             */
-/*   Updated: 2024/10/16 20:36:07 by amaferre         ###   ########.org.br   */
+/*   Updated: 2025/02/16 17:14:25 by amaferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isalpha(int c)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 		return (1);
-	else
-		return (0);
+	return (0);
 }

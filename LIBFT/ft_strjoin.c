@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaferre <amaferre@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 22:42:51 by amaferre          #+#    #+#             */
-/*   Updated: 2024/10/26 22:47:17 by amaferre         ###   ########.org.br   */
+/*   Updated: 2025/02/16 17:08:58 by amaferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,26 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*str;
-	size_t	sub1;
-	size_t	sub2;
+	size_t	total_len;
+	size_t	i;
+	size_t	j;
+	char	*ptr;
 
-	sub1 = ft_strlen(s1);
-	sub2 = ft_strlen(s2);
-	str = malloc((sub1 + sub2 + 1) * sizeof(char));
-	if (str == NULL)
+	if (!s1 || !s2)
 		return (NULL);
-	ft_strlcpy(str, s1, sub1 + 1);
-	ft_strlcpy(&str[sub1], s2, sub2 + 1);
-	return (str);
+	i = 0;
+	j = 0;
+	total_len = ft_strlen(s1) + ft_strlen(s2);
+	ptr = (char *)malloc(total_len * sizeof(char) + 1);
+	if (!ptr)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+		ptr[i++] = s2[j++];
+	ptr[i] = '\0';
+	return (ptr);
 }

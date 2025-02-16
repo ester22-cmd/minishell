@@ -26,20 +26,6 @@ void	minifree(char **ptr)
 	ptr = NULL;
 }
 
-void	free_reset(t_mini *mini, t_list *list)
-{
-	free_list(&list);
-	if (ft_strlen(mini->input) > 0)
-	{
-		if (mini->input[0] == '|')
-			printf("minihell: syntax error. Unexpected token \'|\'\n");
-		free(mini->input);
-	}
-	free(mini->input_sanitized);
-	if (mini->correct_path != NULL)
-		free(mini->correct_path);
-}
-
 void	free_em_all(t_mini *mini)
 {
 	t_env	*env;
@@ -48,4 +34,25 @@ void	free_em_all(t_mini *mini)
 	free_env(&env);
 	minifree(mini->path);
 	free(mini->home);
+}
+void	free_reset(t_mini *mini, t_list *list)
+{
+	free_list(&list);
+	if (mini->input && ft_strlen(mini->input) > 0)
+	{
+		if (mini->input[0] == '|')
+			printf("minihell: syntax error. Unexpected token \'|\'\n");
+		free(mini->input);
+		mini->input = NULL;
+	}
+	if (mini->input_sanitized)
+	{
+		free(mini->input_sanitized);
+		mini->input_sanitized = NULL;
+	}
+	if (mini->correct_path)
+	{
+		free(mini->correct_path);
+		mini->correct_path = NULL;
+	}
 }

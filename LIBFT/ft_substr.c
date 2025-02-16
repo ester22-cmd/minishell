@@ -6,7 +6,7 @@
 /*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 22:23:28 by amaferre          #+#    #+#             */
-/*   Updated: 2024/11/04 20:53:24 by amaferre         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:05:20 by amaferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,29 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	s_len;
-	size_t	str_len;
-	char	*str;
+	char			*sub;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	slen;
 
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (start + len > s_len)
-		str_len = s_len - start;
-	else
-		str_len = len;
-	str = (char *)malloc((str_len + 1) * sizeof(char));
-	if (!str)
+	if (!s)
 		return (NULL);
-	ft_strlcpy(str, s + start, str_len + 1);
-	return (str);
+	i = 0;
+	j = start;
+	slen = ft_strlen(s);
+	if (((slen - start) > len) && (start < slen))
+		sub = malloc((len * sizeof(char) + 1));
+	else if (start > slen)
+		sub = malloc(sizeof(char));
+	else
+		sub = malloc(((slen - start) * sizeof(char) + 1));
+	if (!sub)
+		return (NULL);
+	if ((start < slen))
+	{
+		while ((i < len) && s[j])
+			sub[i++] = s[j++];
+	}
+	sub[i] = '\0';
+	return (sub);
 }
