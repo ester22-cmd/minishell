@@ -14,9 +14,8 @@
 
 void	execute_child(t_mini *mini, t_node *node)
 {
-
 	int	i;
-
+	
 	i = 3;
 	while (i < 150)
 	{
@@ -64,6 +63,7 @@ void	execute(t_mini *mini, t_list *list, t_node *node)
 	dup2(mini->st_out, STDOUT_FILENO);
 	dup2(mini->st_in, STDIN_FILENO);
 }
+
 void	verify_quotes(t_mini *mini, char *str)
 {
 	int	i;

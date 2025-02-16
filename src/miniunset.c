@@ -33,7 +33,7 @@ void	miniunset(t_env *env, t_node *node, t_nodenv *aux, t_nodenv *prev)
 			free(aux->content);
 			free(aux);
 			aux = prev->next;
-			break;
+			break ;
 		}
 	}
 	g_return = 0;

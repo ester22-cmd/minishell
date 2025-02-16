@@ -90,7 +90,7 @@ void	input_sanitizer(t_mini *mini, t_sani *sani)
 {
 	char	*aux;
 	int		len;
-
+	
 	sani->s = 0;
 	sani->d = 0;
 	sani->i = 0;
@@ -99,4 +99,4 @@ void	input_sanitizer(t_mini *mini, t_sani *sani)
 	len = correct_len(aux, 0, 0, sani);
 	put_spaces(aux, len, sani, mini);
 	free(aux);
-} 
+}

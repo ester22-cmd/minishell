@@ -40,7 +40,7 @@ void	copy_var(t_env *env, char *str)
 
 void	miniexport(t_env *env, t_node *node)
 {
-	int			j;
+	int	j;
 
 	j = 0;
 	if (node->str[1])
@@ -56,6 +56,6 @@ void	miniexport(t_env *env, t_node *node)
 		copy_var(env, node->str[1]);
 	}
 	else
-		print_env(env); 
+		print_env(env);
 	g_return = 0;
 }
