@@ -32,7 +32,6 @@ int	dirty_job_handler(t_mini *mini, t_list *list, char *str, int start)
 		&& mini->is_open_d == 0)
 	{
 		str = ft_substr(mini->input_sanitized, start, mini->i - start + 1);
-
 		if (!is_space(str))
 		{
 			free(str);
@@ -57,7 +56,6 @@ void	dirty_job(t_mini *m, t_list *list, int start)
 			str = ft_substr(m->input_sanitized, start, (m->i - 1) - start);
 			m->i++;
 			start = m->i;
-
 			if (!is_space(str))
 			{
 				m->pipe--;

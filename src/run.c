@@ -15,7 +15,7 @@
 void	execute_child(t_mini *mini, t_node *node)
 {
 	int	i;
-	
+
 	i = 3;
 	while (i < 150)
 	{
@@ -129,7 +129,6 @@ void	run(t_mini *mini, t_list *list, int i)
 		if (pipe(fd) < 0)
 			printf("error\n");
 		mini->out = fd[1];
-
 		run_cmd(mini, list, node);
 		close(fd[1]);
 		if (mini->in != 0)

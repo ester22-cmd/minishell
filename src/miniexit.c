@@ -23,7 +23,7 @@ void	miniexit(t_mini *mini, t_node *node, t_list *list)
 		i++;
 	if (i > 2)
 		printf("exit: too many arguments\n");
-	else 
+	else
 	{
 		if (node->str[1] && ft_strcmp(node->str[1], "exit"))
 			code = ft_atoi(node->str[1]);

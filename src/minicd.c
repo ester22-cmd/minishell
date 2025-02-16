@@ -22,9 +22,7 @@ void	minicd(t_mini *mini, t_node *node)
 	home = NULL;
 	if (node->str[1])
 		g_return = chdir(node->str[1]);
-
-		else
-
+	else
 	{
 		while (env != NULL)
 		{
