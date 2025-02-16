@@ -9,12 +9,12 @@ int	main(void)
 	t_sani	sani; // Estrutura usada para sanitizar a entrada do usuário
 
 	init(&mini, __environ); // Inicializa a estrutura mini, passando as variáveis de ambiente do sistema (__environ)
-	while (1) // Loop infinito para manter o shell rodando
+	while (1)
 	{
-		signals(1); // Configura os handlers de sinais (provavelmente para Ctrl+C, Ctrl+D, etc.)
-	// Define os descritores de entrada e saída como padrão (caso tenham sido alterados por redirecionamentos)
-		mini.in = STDIN_FILENO; // Entrada padrão (teclado)
-		mini.out = STDOUT_FILENO; // Saída padrão (tela)
+		signals(1);
+
+		mini.in = STDIN_FILENO;
+		mini.out = STDOUT_FILENO;
 
 		list = create_list();
 		get_input(&mini, &sani, list);
