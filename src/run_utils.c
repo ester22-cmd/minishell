@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/15 23:20:29 by amaferre          #+#    #+#             */
+/*   Updated: 2025/02/15 23:20:29 by amaferre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 int	is_this_quote(char *str)
@@ -5,10 +17,11 @@ int	is_this_quote(char *str)
 	if ((str[0] == D_QUOTE || str[0] == S_QUOTE) && str[1] == '\0')
 		return (1);
 	return (0);
-
+}
 int	get_result(t_mini *mini, t_node *node, int i)
 {
 	int	result;
+
 	result = 1; 
 	if (mini->open_s_str == 0 && mini->open_d_str == 0
 		&& (!ft_strcmp(node->str[i], ">") || !ft_strcmp(node->str[i], ">>")))
@@ -17,6 +30,7 @@ int	get_result(t_mini *mini, t_node *node, int i)
 		&& (!ft_strcmp(node->str[i], "<") || !ft_strcmp(node->str[i], "<<")))
 		result = redirect_in(mini, node, i);
 	return (result); 
+}
 void	fd_handler(t_mini *mini)
 	(void)mini;
 	if (mini->in != 0)

@@ -37,7 +37,6 @@ void	ft_putstrendl_fd(char *s, int fd)
 		while (s[i] != '\0')
 		{
 			write(fd, &s[i], 1);
-            i++;
 			i++;
 		}
 		write(fd, "\n", 1);
