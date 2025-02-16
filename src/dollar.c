@@ -65,6 +65,7 @@ char	*get_join(char *str)
 	while (str[i] && str[i] != '$')
 		i++;
 	aux = ft_substr(str, 0, i - 1);
+	return (aux);
 }
 
 char	*get_content(t_mini *mini, t_node *node, int i, int j)

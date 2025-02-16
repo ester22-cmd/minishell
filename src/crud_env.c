@@ -29,6 +29,7 @@ t_nodenv	*create_nodenv(char *key, char *content)
 
 	node = malloc(sizeof(t_nodenv));
 	node->key = ft_strdup(key);
+	if (content)
 		node->content = ft_strdup(content);
 	else
 		node->content = ft_strdup("");

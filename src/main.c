@@ -39,5 +39,6 @@ int	main(void)
 		mini.pipe = 0;
 	}
 	free_em_all(&mini);
+	rl_clear_history();
 	return (0);
 }
