@@ -14,6 +14,14 @@
 
 int	g_return;
 
+int	returnStatus(int w_status)
+{
+	static int status;
+
+	if (w_status == -1)
+		return status;
+}
+
 int	main(void)
 {
 	t_mini	mini;

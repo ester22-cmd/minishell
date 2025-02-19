@@ -66,5 +66,6 @@ void	init(t_mini *mini, char **environ)
 	mini->pipe = 0;
 	mini->redir = 0;
 	mini->command_fail = 1;
+	mini->input = NULL;
 	g_return = 0;
 }

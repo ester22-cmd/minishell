@@ -1,21 +1,32 @@
 {
-   readline_leak
+   <Readline>
    Memcheck:Leak
    match-leak-kinds: reachable
+   ...
    fun:readline
+   ...
 }
-
 {
-   history_leak
+   <Readline>
    Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:add_history
+   match-leak-kinds: definite
+   fun:malloc
+   fun:xmalloc
+   fun:rl_add_undo
+   fun:rl_insert_text
+   fun:_rl_insert_char
+   fun:rl_insert
+   fun:_rl_dispatch_subseq
+   fun:readline_internal_char
+   fun:readline
+   ...
 }
-
 {
-   history_list_leak
+   <AddHistory>
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
-   obj:/lib/x86_64-linux-gnu/libhistory.so.*
+   fun:xmalloc
+   fun:add_history
+   ...
 }

@@ -118,7 +118,10 @@ void	get_input(t_mini *mini, t_sani *sani, t_list *list)
 	else
 	{
 		free_list(&list);
-		free(mini->input_sanitized);
+		if (mini->input_sanitized)
+			free(mini->input_sanitized);
+		if (mini->input)
+			free(mini->input);
 		if (mini->correct_path != NULL)
 			free(mini->correct_path);
 		free_em_all(mini);
