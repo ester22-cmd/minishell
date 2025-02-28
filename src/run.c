@@ -30,7 +30,7 @@ void	execute_child(t_mini *mini, t_node *node)
 		exit(EXIT_FAILURE);
 	}
 	if (mini->command_fail == 0)
-		exit(g_return);
+		exit(returnStatus(-1));
 	else
 		exit(0);
 }
@@ -49,16 +49,16 @@ void	execute(t_mini *mini, t_list *list, t_node *node)
 		if (pid < 0)
 		{
 			printf("error\n");
-			g_return = 127;
+			returnStatus(127);
 		}
 		else if (pid == 0)
 			execute_child(mini, node);
 		else
-			waitpid(pid, &g_return, WUNTRACED);
-		if (WIFEXITED(g_return))
-			g_return = WEXITSTATUS(g_return);
+			waitpid(pid, &status, WUNTRACED);
+		if (WIFEXITED(status))
+			returnStatus(WEXITSTATUS(status));
 		else
-			g_return = 0;
+			returnStatus(0);
 	}
 	dup2(mini->st_out, STDOUT_FILENO);
 	dup2(mini->st_in, STDIN_FILENO);
