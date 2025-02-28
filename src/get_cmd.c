@@ -12,105 +12,97 @@
 
 #include "../include/minishell.h"
 
-void	check_dollar(t_mini *mini, t_node *node)
+void check_dollar(t_mini *mini, t_node *node)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
-	i = 0;
-	j = 0;
-	while (node->str[i])
+	i = -1;
+	while (node->str[++i])
 	{
-		j = 0;
-		while (node->str[i][j])
+		j = -1;
+		while (node->str[i][++j])
 		{
 			is_in_quote(node->str[i][j], mini);
-			if (mini->is_open_s == 0 && node->str[i][j] == '$'
-				&& node->str[i][j + 1] != ' ' && node->str[i][j + 1] != '\0')
+			if (!mini->is_open_s && node->str[i][j] == '$' && node->str[i][j + 1] != ' ' && node->str[i][j + 1] != '\0')
 			{
 				expand_var(mini, node, i);
-				break ;
+				break;
 			}
-			j++;
 		}
-		i++;
 	}
 }
 
-char	*dirty_jobs(char **str, int i)
+char *dirty_jobs(char *str)
 {
-	char	*holder;
-	char	*aux;
-	int		start;
-	int		end;
-	int		j;
+	char *result;
+	int j;
+	int k;
 
+	result = malloc(ft_strlen(str) + 1);
 	j = 0;
-	holder = ft_strdup(str[i]);
-	while (holder[j] && holder[j] == ' ')
+	k = 0;
+	while (str[j])
+	{
+		if (str[j] != D_QUOTE && str[j] != S_QUOTE) // Ignora aspas
+			result[k++] = str[j];
 		j++;
-	while (holder[j] && (holder[j] == D_QUOTE || holder[j] == S_QUOTE))
-		j++;
-	start = j;
-	while (holder[j] && holder[j] != D_QUOTE && holder[j] != S_QUOTE)
-		j++;
-	end = j - 1;
-	aux = ft_substr(holder, start, end - start + 1);
-	return (aux);
+	}
+	result[k] = '\0';
+	return (result);
 }
 
-char	**remove_quotes(char **str, int len, int i, int k)
+char **remove_quotes(char **str, int len)
 {
-	char	**aux;
+	char **aux;
+	int i;
+	int k;
 
-	aux = malloc(sizeof(char *) * len + 1);
-	while (str[i])
+	aux = malloc(sizeof(char *) * (len + 1));
+	i = -1;
+	k = 0;
+	while (str[++i])
 	{
-		if (is_just_quote(str[i]))
-		{
-			aux[k] = dirty_jobs(str, i);
-			k++;
-		}
-		i++;
+		aux[k++] = dirty_jobs(str[i]);
 	}
 	aux[k] = NULL;
 	return (aux);
 }
 
-void	get_cmd(t_mini *mini, t_node *node)
+void get_cmd(t_mini *mini, t_node *node)
 {
-	char	**aux;
-	char	**holder;
-	int		i;
-	int		j;
-	int		len;
+	char **aux;
+	char **holder;
+	int i;
+	int j;
 
-	i = 0;
-	len = len_node(mini, node->str);
-	aux = malloc(sizeof(char *) * len + 1);
+	i = -1;
 	j = 0;
-	while (node->str[i])
+	aux = malloc(sizeof(char *) * (len_node(mini, node->str) + 1));
+	node->str[0] = dirty_jobs(node->str[0]);
+
+	while (node->str[++i])
 	{
 		if (node->str[i][0] == '<' || node->str[i][0] == '>')
 			i += 2;
 		else
-			aux[j++] = ft_strdup(node->str[i++]);
+			aux[j++] = ft_strdup(node->str[i]);
 	}
 	aux[j] = NULL;
-	len = len_node(mini, aux);
-	holder = remove_quotes(aux, len, 0, 0);
+	holder = remove_quotes(aux, len_node(mini, aux));
 	minifree(node->str);
+	holder = remove_quotes(aux, len_node(mini, aux));
 	minifree(aux);
 	node->str = holder;
 	check_dollar(mini, node);
 }
 
-void	get_cmd_builtin(t_mini *mini, t_node *node)
+void get_cmd_builtin(t_mini *mini, t_node *node)
 {
-	char	**aux;
-	int		i;
-	int		j;
-	int		len;
+	char **aux;
+	int i;
+	int j;
+	int len;
 
 	i = 0;
 	len = len_node(mini, node->str);
@@ -119,10 +111,7 @@ void	get_cmd_builtin(t_mini *mini, t_node *node)
 	while (node->str[i])
 	{
 		is_in_quote_str(node->str[i], mini, 0);
-		if ((!ft_strcmp(node->str[i], "<") || !ft_strcmp(node->str[i], ">")
-				|| !ft_strcmp(node->str[i], "<<")
-				|| !ft_strcmp(node->str[i], ">>"))
-			&& mini->is_open_s_str == 0 && mini->is_open_d_str == 0)
+		if ((!ft_strcmp(node->str[i], "<") || !ft_strcmp(node->str[i], ">") || !ft_strcmp(node->str[i], "<<") || !ft_strcmp(node->str[i], ">>")) && mini->is_open_s_str == 0 && mini->is_open_d_str == 0)
 			i += 2;
 		else
 			aux[j++] = ft_strdup(node->str[i++]);
