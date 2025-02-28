@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int g_return;
+int	g_return;
 
 int returnStatus(int w_status)
 {

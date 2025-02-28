@@ -6,12 +6,12 @@
 #    By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/15 23:23:23 by amaferre          #+#    #+#              #
-#    Updated: 2025/02/15 23:23:25 by amaferre         ###   ########.fr        #
+#    Updated: 2025/02/16 21:40:17 by amaferre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		minishell
-CC =		gcc
+CC =		cc
 CFLAGS =	-Wall -Werror -Wextra
 SRC_DIR    := src
 OBJ_DIR    := obj

@@ -35,13 +35,15 @@ void	free_em_all(t_mini *mini)
 	minifree(mini->path);
 	free(mini->home);
 }
+
 void	free_reset(t_mini *mini, t_list *list)
 {
 	free_list(&list);
 	if (mini->input && ft_strlen(mini->input) > 0)
-	{
 		if (mini->input[0] == '|')
 			printf("minihell: syntax error. Unexpected token \'|\'\n");
+	if (mini->input)
+	{
 		free(mini->input);
 		mini->input = NULL;
 	}

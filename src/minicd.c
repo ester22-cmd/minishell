@@ -13,7 +13,6 @@
 #include "../include/minishell.h"
 
 void	minicd(t_mini *mini, t_node *node)
-
 {
 	t_nodenv	*env;
 	char		*home;
