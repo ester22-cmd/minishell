@@ -20,6 +20,8 @@ int	returnStatus(int w_status)
 
 	if (w_status == -1)
 		return status;
+	status = w_status;
+	return status;
 }
 
 int	main(void)
