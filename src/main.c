@@ -14,21 +14,20 @@
 
 int	g_return;
 
-int	returnStatus(int w_status)
+int returnStatus(int w_status)
 {
-	static int status;
+	static int status = 0; // Inicializa o status com 0
 
-	if (w_status == -1)
-		return status;
-	status = w_status;
-	return status;
+	if (w_status != -1) // Se w_status for diferente de -1, atualiza o status
+		status = w_status;
+	return status; // Retorna o status atual
 }
 
-int	main(void)
+int main(void)
 {
-	t_mini	mini;
-	t_list	*list;
-	t_sani	sani;
+	t_mini mini;
+	t_list *list;
+	t_sani sani;
 
 	init(&mini, __environ);
 	while (1)
