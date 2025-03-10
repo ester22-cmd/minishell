@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	execute_child(t_mini *mini, t_node *node)
+#include "../include/minishell.h"
+
+void execute_child(t_mini *mini, t_node *node)
 {
-	int	i;
+	int i;
 
 	i = 3;
 	while (i < 150)
@@ -33,10 +35,10 @@ void	execute_child(t_mini *mini, t_node *node)
 		exit(0);
 }
 
-void	execute(t_mini *mini, t_list *list, t_node *node)
+void execute(t_mini *mini, t_list *list, t_node *node)
 {
-	int	pid;
-	int	status;
+	int pid;
+	int status;
 
 	fd_handler(mini);
 	if (is_builtin(node))
@@ -63,9 +65,9 @@ void	execute(t_mini *mini, t_list *list, t_node *node)
 	dup2(mini->st_in, STDIN_FILENO);
 }
 
-void	verify_quotes(t_mini *mini, char *str)
+void verify_quotes(t_mini *mini, char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (str[i])
@@ -88,10 +90,10 @@ void	verify_quotes(t_mini *mini, char *str)
 	}
 }
 
-void	run_cmd(t_mini *mini, t_list *list, t_node *node)
+void run_cmd(t_mini *mini, t_list *list, t_node *node)
 {
-	int	i;
-	int	result;
+	int i;
+	int result;
 
 	i = 0;
 	result = 1;
@@ -115,10 +117,10 @@ void	run_cmd(t_mini *mini, t_list *list, t_node *node)
 	}
 }
 
-void	run(t_mini *mini, t_list *list, int i)
+void run(t_mini *mini, t_list *list, int i)
 {
-	t_node	*node;
-	int		fd[2];
+	t_node *node;
+	int fd[2];
 
 	node = list->begin;
 	mini->st_out = dup(STDOUT_FILENO);

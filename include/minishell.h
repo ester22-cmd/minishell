@@ -6,7 +6,7 @@
 /*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 23:23:11 by amaferre          #+#    #+#             */
-/*   Updated: 2025/03/10 19:00:35 by amaferre         ###   ########.fr       */
+/*   Updated: 2025/03/10 20:32:13 by amaferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
 
 #define D_QUOTE '\"'
 #define S_QUOTE '\''
@@ -35,6 +36,7 @@
 /*
 ** Linked list structure - Commands
 */
+
 typedef struct s_node
 {
 	char **str;
@@ -52,6 +54,7 @@ typedef struct s_list
 /*
 ** Linked list structure - Environment Variables
 */
+
 typedef struct s_nodenv
 {
 	char *key;
