@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	g_return;
+int g_return;
 
 int returnStatus(int w_status)
 {
@@ -25,9 +25,9 @@ int returnStatus(int w_status)
 
 int main(void)
 {
-	t_mini mini;
-	t_list *list;
-	t_sani sani;
+	t_mini	mini;
+	t_list	*list;
+	t_sani	sani;
 
 	init(&mini, __environ);
 	while (1)

@@ -26,39 +26,40 @@ char	*get_var_content(t_mini *mini, char *key)
 	return (NULL);
 }
 
-char	*get_var(t_mini *mini, char *str, int i)
+char *get_var(t_mini *mini, char *str, int i)
 {
-	char	*var;
-	char	*content;
-	int		len;
-	int		j;
+	char *var;
+	char *content;
+	int len;
+	int j;
 
 	len = 0;
 	j = i;
-	while (str[i] && str[i] != '$')
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 	{
 		len++;
 		i++;
 	}
 	if (len > 0)
 	{
-		var = malloc (sizeof(char) * len + 1);
+		var = malloc(sizeof(char) * (len + 1));
+		if (!var)
+			return (NULL);
 		i = 0;
-		while (str[j] && str[j] != '$' && str[j] != D_QUOTE)
+		while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
 			var[i++] = str[j++];
 		var[i] = '\0';
 		content = get_var_content(mini, var);
 		free(var);
-		return (content);
+		return (content ? content : ft_strdup(""));
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 char	*get_join(char *str)
 {
 	int		i;
 	char	*aux;
-
 	i = 0;
 	if (str[i] == '$')
 		return (NULL);
@@ -80,30 +81,30 @@ char	*get_content(t_mini *mini, t_node *node, int i, int j)
 	return (content);
 }
 
-char	*transform(t_mini *mini, t_node *node, int i, int j)
+char *transform(t_mini *mini, t_node *node, int i, int j)
 {
-	char	*content;
-	char	*holder;
-	char	*aux;
+	char *result = ft_strdup("");
+	char *aux, *content;
+	int var_len;
 
-	content = NULL;
-	holder = get_join(node->str[i]);
 	while (node->str[i][j])
 	{
-		if (node->str[i][j] == '$')
+		if (node->str[i][j] == '$' && (var_len = 0) == 0)
 		{
-			content = get_content(mini, node, i, j);
-			if (content != NULL)
+			while (node->str[i][++j] && (ft_isalnum(node->str[i][j]) || node->str[i][j] == '_'))
+				var_len++;
+			if (var_len > 0 && (content = get_var_content(mini, ft_substr(node->str[i], j - var_len, var_len))))
 			{
-				aux = holder;
-				if (holder == NULL)
-					aux = ft_strdup("");
-				holder = ft_strjoin(aux, content);
+				aux = result;
+				result = ft_strjoin(aux, content);
 				free(aux);
 				free(content);
 			}
+			else if (!var_len)
+				result = ft_strjoin_free(result, "$");
 		}
-		j++;
+		else
+			result = ft_strjoin_free(result, (char[]){node->str[i][j++], '\0'});
 	}
-	return (holder);
+	return (result);
 }

@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
 void	execute_child(t_mini *mini, t_node *node)
 {
 	int	i;
@@ -38,6 +36,7 @@ void	execute_child(t_mini *mini, t_node *node)
 void	execute(t_mini *mini, t_list *list, t_node *node)
 {
 	int	pid;
+	int	status;
 
 	fd_handler(mini);
 	if (is_builtin(node))
