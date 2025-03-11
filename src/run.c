@@ -40,6 +40,7 @@ void execute(t_mini *mini, t_list *list, t_node *node)
 	int pid;
 	int status;
 
+	status = 0;
 	fd_handler(mini);
 	if (is_builtin(node))
 		execute_builtin(is_builtin(node), node, mini, list);

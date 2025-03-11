@@ -6,7 +6,7 @@
 /*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 23:23:11 by amaferre          #+#    #+#             */
-/*   Updated: 2025/03/10 20:32:13 by amaferre         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:07:52 by amaferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <signal.h>
-#include <stdlib.h>
 
 #define D_QUOTE '\"'
 #define S_QUOTE '\''
@@ -36,7 +35,6 @@
 /*
 ** Linked list structure - Commands
 */
-
 typedef struct s_node
 {
 	char **str;
@@ -54,7 +52,6 @@ typedef struct s_list
 /*
 ** Linked list structure - Environment Variables
 */
-
 typedef struct s_nodenv
 {
 	char *key;
@@ -123,65 +120,66 @@ extern int g_return;
 /*
 ** linked list functions
 */
-t_list	*create_list(void);
-void	push_node(t_list *list, char *str);
-void	free_list(t_list **list_ref);
-t_env	*create_env(void);
-void	push_env(t_env *env, char *key, char *content);
-void	free_env(t_env **env_ref);
-void	print_env(t_env *env);
+t_list *create_list(void);
+void push_node(t_list *list, char *str);
+void free_list(t_list **list_ref);
+t_env *create_env(void);
+void push_env(t_env *env, char *key, char *content);
+void free_env(t_env **env_ref);
+void print_env(t_env *env);
 
 /*
 ** Minishell functions
 */
-void	minifree(char **ptr);
-void	free_em_all(t_mini *mini);
-void	init(t_mini *mini, char **environ);
-void	free_reset(t_mini *mini, t_list *list);
-void	is_in_quote(char c, t_mini *mini);
-int		split_cmd(t_mini *mini, t_list *list);
-void	input_sanitizer(t_mini *mini, t_sani *sani);
-int		is_builtin(t_node *node);
-void	execute_builtin(int builtin, t_node *node, t_mini *mini, t_list *list);
-int		find_path(t_mini *mini, char *cmd);
-int		is_redirect(char c);
-int		redirect_out(t_mini *mini, t_node *node, int i);
-int		redirect_in(t_mini *mini, t_node *node, int i);
-int		returnStatus(int w_status);
-void	run(t_mini *mini, t_list *list, int i);
-void	fd_handler(t_mini *mini);
-void	get_cmd(t_mini *mini, t_node *node);
-void	get_input(t_mini *mini, t_sani *sani, t_list *list);
-int		redir_validate(t_list *list);
-int		check_tilda(char *cmd);
-void	get_home(t_mini *mini);
-char	*copy_path(t_mini *mini, char *cmd, int tilda);
-void	get_home(t_mini *mini);
-int		len_node(t_mini *mini, char **str);
-void	expand_var(t_mini *mini, t_node *node, int i);
-void	signals(int signum);
-void	get_cmd_builtin(t_mini *mini, t_node *node);
-int		is_space(char *str);
-int		input_validate(t_mini *mini);
-int		quotes_closed(t_mini *mini);
-void	is_in_quote_str(char *str, t_mini *mini, int i);
-int		is_just_quote(char *str);
-int		len_quote(char **str);
-char	*transform(t_mini *mini, t_node *node, int i, int j);
-int		is_this_quote(char *str);
-int		get_result(t_mini *mini, t_node *node, int i);
-void	fd_handler(t_mini *mini);
-int		is_str_quote(char *str, int open);
-char	*ft_strjoin_free(char *s1, char *s2);
-char	*transform(t_mini *mini, t_node *node, int i, int j);
+void minifree(char **ptr);
+void free_em_all(t_mini *mini);
+void init(t_mini *mini, char **environ);
+void free_reset(t_mini *mini, t_list *list);
+void is_in_quote(char c, t_mini *mini);
+int split_cmd(t_mini *mini, t_list *list);
+void input_sanitizer(t_mini *mini, t_sani *sani);
+int is_builtin(t_node *node);
+void execute_builtin(int builtin, t_node *node, t_mini *mini, t_list *list);
+int find_path(t_mini *mini, char *cmd);
+int is_redirect(char c);
+int redirect_out(t_mini *mini, t_node *node, int i);
+int redirect_in(t_mini *mini, t_node *node, int i);
+int returnStatus(int w_status);
+void run(t_mini *mini, t_list *list, int i);
+void fd_handler(t_mini *mini);
+void get_cmd(t_mini *mini, t_node *node);
+void get_input(t_mini *mini, t_sani *sani, t_list *list);
+int redir_validate(t_list *list);
+int check_tilda(char *cmd);
+void get_home(t_mini *mini);
+char *copy_path(t_mini *mini, char *cmd, int tilda);
+void get_home(t_mini *mini);
+int len_node(t_mini *mini, char **str);
+void expand_var(t_mini *mini, t_node *node, int i);
+void signals(int signum);
+void get_cmd_builtin(t_mini *mini, t_node *node);
+int is_space(char *str);
+int input_validate(t_mini *mini);
+int quotes_closed(t_mini *mini);
+void is_in_quote_str(char *str, t_mini *mini, int i);
+int is_just_quote(char *str);
+int len_quote(char **str);
+char *transform(t_mini *mini, t_node *node, int i, int j);
+int is_this_quote(char *str);
+int get_result(t_mini *mini, t_node *node, int i);
+void fd_handler(t_mini *mini);
+int is_str_quote(char *str, int open);
+char *transform(t_mini *mini, t_node *node, int i, int j);
+void execute_child(t_mini *mini, t_node *node);
 
 /* Builtins */
-void	miniexit(t_mini *mini, t_node *node, t_list *list);
-void	miniunset(t_env *env, t_node *node, t_nodenv *aux, t_nodenv *prev);
-void	minipwd(void);
-void	minicd(t_mini *mini, t_node *node);
-void	miniecho(t_mini *mini, t_node *node, int i);
-void	minienv(t_env *env);
-void	miniexport(t_env *env, t_node *node);
+void miniexit(t_mini *mini, t_node *node, t_list *list);
+void miniunset(t_env *env, t_node *node, t_nodenv *aux, t_nodenv *prev);
+void minipwd(void);
+void minicd(t_mini *mini, t_node *node);
+void miniecho(t_mini *mini, t_node *node, int i);
+void minienv(t_env *env);
+void miniexport(t_env *env, t_node *node);
+char *ft_strjoin_free(char *s1, char *s2);
 
 #endif
