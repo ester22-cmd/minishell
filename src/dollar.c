@@ -26,12 +26,12 @@ char	*get_var_content(t_mini *mini, char *key)
 	return (NULL);
 }
 
-char *get_var(t_mini *mini, char *str, int i)
+char	*get_var(t_mini *mini, char *str, int i)
 {
-	char *var;
-	char *content;
-	int len;
-	int j;
+	char	*var;
+	char	*content;
+	int		len;
+	int		j;
 
 	len = 0;
 	j = i;
@@ -60,7 +60,7 @@ char	*get_join(char *str)
 {
 	int		i;
 	char	*aux;
-	i = 0;
+	i		=0;
 	if (str[i] == '$')
 		return (NULL);
 	while (str[i] && str[i] != '$')
@@ -81,11 +81,11 @@ char	*get_content(t_mini *mini, t_node *node, int i, int j)
 	return (content);
 }
 
-char *transform(t_mini *mini, t_node *node, int i, int j)
+char	*transform(t_mini *mini, t_node *node, int i, int j)
 {
-	char *result = ft_strdup("");
-	char *aux, *content;
-	int var_len;
+	char	*result = ft_strdup("");
+	char	*aux, *content;
+	int		var_len;
 
 	while (node->str[i][j])
 	{

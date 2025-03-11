@@ -3,81 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: estferna <estferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 23:23:11 by amaferre          #+#    #+#             */
-/*   Updated: 2025/03/11 17:44:19 by amaferre         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:03:01 by estferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include "../LIBFT/libft.h"
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
-#include <dirent.h>
-#include <sys/wait.h>
-#include <limits.h>
-#include <errno.h>
-#include <signal.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <signal.h>
+# include "../LIBFT/libft.h"
+# include <stdio.h>
+# include <string.h>
+# include <fcntl.h>
+# include <dirent.h>
+# include <sys/wait.h>
+# include <limits.h>
+# include <errno.h>
+# include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <signal.h>
 
-#define D_QUOTE '\"'
-#define S_QUOTE '\''
-#define DELIM "|<>"
-#define TMP_FILE "/tmp/here_doc_tmp_file"
+# define D_QUOTE '\"'
+# define S_QUOTE '\''
+# define DELIM "|<>"
+# define TMP_FILE "/tmp/here_doc_tmp_file"
 
 /*
 ** Linked list structure - Commands
 */
 typedef struct s_node
 {
-	char **str;
-	struct s_node *next;
-} t_node;
+	char				**str;
+	struct s_node		*next;
+}	t_node;
 
 typedef struct s_list
 {
-	t_node *begin;
-	t_node *end;
-	t_node *node;
-	size_t size;
-} t_list;
+	t_node	*begin;
+	t_node	*end;
+	t_node	*node;
+	size_t	size;
+}	t_list;
 
 /*
 ** Linked list structure - Environment Variables
 */
 typedef struct s_nodenv
 {
-	char *key;
-	char *content;
-	struct s_nodenv *next;
-} t_nodenv;
+	char			*key;
+	char			*content;
+	struct s_nodenv	*next;
+}	t_nodenv;
 
 typedef struct s_env
 {
-	t_nodenv *begin;
-	t_nodenv *end;
-	size_t size;
-} t_env;
+	t_nodenv	*begin;
+	t_nodenv	*end;
+	size_t		size;
+}	t_env;
 
 typedef struct s_sani
 {
-	int i;
-	int j;
-	int s;
-	int d;
-} t_sani;
+	int	i;
+	int	j;
+	int	s;
+	int	d;
+}	t_sani;
 
 typedef struct s_hand
 {
-	int open;
-} t_hand;
+	int	open;
+}	t_hand;
 
 /*
 ** input -> line read from terminal (raw, no treats)
@@ -88,34 +88,34 @@ typedef struct s_hand
 */
 typedef struct s_mini
 {
-	char **path;
-	char *input;
-	char *input_sanitized;
-	char *correct_path;
-	char *home;
-	int init_with_arrow;
-	int is_open_s;
-	int is_open_d;
-	int final_s;
-	int final_d;
-	int is_open_s_str;
-	int is_open_d_str;
-	int is_final_s;
-	int is_final_d;
-	int open_s_str;
-	int open_d_str;
-	int pipe;
-	int redir;
-	int out;
-	int in;
-	int st_out;
-	int st_in;
-	int command_fail;
-	int i;
-	t_env *env;
-} t_mini;
+	char	**path;
+	char	*input;
+	char	*input_sanitized;
+	char	*correct_path;
+	char	*home;
+	int		init_with_arrow;
+	int		is_open_s;
+	int		is_open_d;
+	int		final_s;
+	int		final_d;
+	int		is_open_s_str;
+	int		is_open_d_str;
+	int		is_final_s;
+	int		is_final_d;
+	int		open_s_str;
+	int		open_d_str;
+	int		pipe;
+	int		redir;
+	int		out;
+	int		in;
+	int		st_out;
+	int		st_in;
+	int		command_fail;
+	int		i;
+	t_env	*env;
+}	t_mini;
 
-extern int g_return;
+extern int	g_return;
 
 /*
 ** linked list functions
