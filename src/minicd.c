@@ -12,31 +12,45 @@
 
 #include "../include/minishell.h"
 
-void	minicd(t_mini *mini, t_node *node)
+void change_directory(char *path)
 {
-	t_nodenv	*env;
-	char		*home;
-
-	env = mini->env->begin;
-	home = NULL;
-	if (node->str[1])
-		g_return = chdir(node->str[1]);
+	if (chdir(path) < 0)
+	{
+		printf("cd: no such file or directory: %s\n", path);
+		g_return = 1;
+	}
 	else
 	{
-		while (env != NULL)
-		{
-			if (!ft_strcmp(env->key, "HOME"))
-				home = ft_strdup(env->content);
-			env = env->next;
-		}
-		if (home != NULL)
-		{
-			chdir(home);
-			free(home);
-		}
+		g_return = 0;
 	}
-	if (g_return < 0)
-		printf("cd: no such file or directory\n");
-	if (g_return < 0)
+}
+
+void minicd(t_mini *mini, t_node *node)
+{
+	t_nodenv *env = mini->env->begin;
+
+	if (node->str[1] && node->str[2])
+	{
+		printf("cd: too many arguments\n");
 		g_return = 1;
+		return;
+	}
+
+	if (node->str[1])
+	{
+		change_directory(node->str[1]);
+		return;
+	}
+
+	while (env && ft_strcmp(env->key, "HOME"))
+		env = env->next;
+
+	if (!env)
+	{
+		printf("cd: HOME not set\n");
+		g_return = 1;
+		return;
+	}
+
+	change_directory(env->content);
 }

@@ -6,7 +6,7 @@
 /*   By: amaferre <amaferre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 23:23:11 by amaferre          #+#    #+#             */
-/*   Updated: 2025/03/10 21:07:52 by amaferre         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:44:19 by amaferre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int is_this_quote(char *str);
 int get_result(t_mini *mini, t_node *node, int i);
 void fd_handler(t_mini *mini);
 int is_str_quote(char *str, int open);
+char *ft_strjoin_free(char *s1, char *s2);
 char *transform(t_mini *mini, t_node *node, int i, int j);
 void execute_child(t_mini *mini, t_node *node);
 
@@ -180,6 +181,5 @@ void minicd(t_mini *mini, t_node *node);
 void miniecho(t_mini *mini, t_node *node, int i);
 void minienv(t_env *env);
 void miniexport(t_env *env, t_node *node);
-char *ft_strjoin_free(char *s1, char *s2);
 
 #endif

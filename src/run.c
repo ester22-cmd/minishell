@@ -27,10 +27,12 @@ void execute_child(t_mini *mini, t_node *node)
 	{
 		execve(mini->correct_path, node->str, __environ);
 		perror("error");
-		exit(EXIT_FAILURE);
+		// exit(EXIT_FAILURE);
+		exit(127);
 	}
 	if (mini->command_fail == 0)
-		exit(returnStatus(-1));
+		// exit(returnStatus(-1));
+		exit(127);
 	else
 		exit(0);
 }
@@ -40,28 +42,40 @@ void execute(t_mini *mini, t_list *list, t_node *node)
 	int pid;
 	int status;
 
-	status = 0;
-	fd_handler(mini);
+	fd_handler(mini); // Garante que os descritores estejam resetados
+
 	if (is_builtin(node))
+	{
 		execute_builtin(is_builtin(node), node, mini, list);
+	}
 	else
 	{
 		pid = fork();
-		signals(2);
 		if (pid < 0)
 		{
-			printf("error\n");
-			returnStatus(127);
+			perror("fork error");
+			g_return = 127;
 		}
 		else if (pid == 0)
+		{							// Child process
+			signals(2); // Configura sinais para child
 			execute_child(mini, node);
+		}
 		else
+		{							// Parent process
+			signals(1); // Configura sinais para parent
 			waitpid(pid, &status, WUNTRACED);
-		if (WIFEXITED(status))
-			returnStatus(WEXITSTATUS(status));
-		else
-			returnStatus(0);
+
+			if (WIFEXITED(status))
+				g_return = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				g_return = 128 + WTERMSIG(status);
+			else
+				g_return = 1;
+		}
 	}
+
+	// Restaura descritores padrão
 	dup2(mini->st_out, STDOUT_FILENO);
 	dup2(mini->st_in, STDIN_FILENO);
 }
